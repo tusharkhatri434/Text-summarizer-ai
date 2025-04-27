@@ -72,7 +72,7 @@ document.addEventListener('mouseup', (e) => {
 
 
 async function summarizeText(text) {
-  const apiKey = "AIzaSyC-t3QJq-_2pVZlXOHo31ekTcfk86Qzm6Y";
+  const apiKey = "your_api_key";
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`
 
