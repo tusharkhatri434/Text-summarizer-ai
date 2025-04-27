@@ -1,8 +1,5 @@
 let timerId;
 document.addEventListener('mouseup', (e) => {
-  if(timerId){
-    clearTimeout(timerId);
-  }
   const selectedText = window.getSelection().toString().trim();
   if (selectedText.length > 0) {
     const existingPopup = document.getElementById('save-highlight-popup');
@@ -35,16 +32,16 @@ document.addEventListener('mouseup', (e) => {
     summarizeBtn.onclick = ()=>{
         // calling api for text summrize-----
         clearTimeout(timerId);
-        timerId =  setTimeout(() => {
-          popup.remove();
-        }, 5000);
+        timerId = null;
+        
         summarizeText(selectedText).then((response)=>{
           summaryPara.innerText = response;
           popup.appendChild(summaryPara); 
-          clearTimeout(timerId);
+  
+          if(clearTimeout==null){}
           setTimeout(() => {
             popup.remove();
-          }, 8000);
+          }, 5000);
         });
     }
 
@@ -62,16 +59,20 @@ document.addEventListener('mouseup', (e) => {
     popup.appendChild(summarizeBtn);
     popup.appendChild(summaryPara);
     document.body.appendChild(popup);
+    
+    if(timerId!=null){
+      clearTimeout(timerId);
+    }
 
     timerId = setTimeout(() => {
       popup.remove();
-    }, 3000);
+    }, 5000);
   }
 });
 
 
 async function summarizeText(text) {
-  const apiKey = "YOUR_API_KEY";
+  const apiKey = "AIzaSyC-t3QJq-_2pVZlXOHo31ekTcfk86Qzm6Y";
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`
 
